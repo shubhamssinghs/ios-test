@@ -30,8 +30,8 @@ jobs:
 
       - name: Run Tests
         run: |
-          cd TestSample  # Position yourself inside the TestSample directory
-          xcodebuild -workspace TestSample.xcworkspace \
+          cd TestSample
+          xcodebuild -project ../TestSample.xcodeproj \
                -scheme TestSample \
                -sdk iphonesimulator \
                -destination 'platform=iOS Simulator,name=iPhone 12' \
