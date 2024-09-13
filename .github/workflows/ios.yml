@@ -73,17 +73,25 @@ jobs:
           # path: ${{ runner.temp }}/build
           retention-days: 3
 
-      - name: Install lftp
-        run: |
-          brew install lftp
+      # Create a GitHub release
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0 # You can update this with your own versioning logic
+          release_name: "iOS TestSample v1.0.0" # Customize the release name
+          draft: false
+          prerelease: true
 
-      - name: Upload .ipa file to FTP server using lftp
-        run: |
-          lftp -e "
-          set ftp:ssl-allow yes;
-          open ${{ secrets.FTP_HOST }};
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
-          cd ${{ secrets.FTP_DIRECTORY }};
-          put $RUNNER_TEMP/build/TestSample.ipa;
-          bye;
-          "
+      # Upload .ipa to the GitHub release as an asset
+      - name: Upload IPA to GitHub Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: $RUNNER_TEMP/build/TestSample.ipa
+          asset_name: TestSample.ipa
+          asset_content_type: application/octet-stream
