@@ -75,8 +75,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v1.0.0
-          release_name: "iOS TestSample v1.0.0"
+          tag_name: v1.1.0
+          release_name: "iOS TestSample v1.1.0"
           draft: false
           prerelease: true
 
