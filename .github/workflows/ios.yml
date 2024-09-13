@@ -79,13 +79,3 @@ jobs:
           release_name: "iOS TestSample v1.1.0"
           draft: false
           prerelease: true
-
-      - name: Upload IPA to GitHub Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: $RUNNER_TEMP/build/TestSample.ipa
-          asset_name: TestSample.ipa
-          asset_content_type: application/octet-stream
