@@ -73,6 +73,10 @@ jobs:
           # path: ${{ runner.temp }}/build
           retention-days: 3
 
+      - name: Install lftp
+        run: |
+          brew install lftp
+
       - name: Upload .ipa file to FTP server using lftp
         run: |
           lftp -e "
