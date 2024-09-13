@@ -72,3 +72,14 @@ jobs:
           # you can also archive the entire directory
           # path: ${{ runner.temp }}/build
           retention-days: 3
+
+      - name: Upload .ipa file to FTP server using lftp
+        run: |
+          lftp -e "
+          set ftp:ssl-allow no;
+          open ${{ secrets.FTP_HOST }};
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
+          cd ${{ secrets.FTP_DIRECTORY }};
+          put $RUNNER_TEMP/build/TestSample.ipa;
+          bye;
+          "
