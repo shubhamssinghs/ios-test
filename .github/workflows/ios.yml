@@ -80,7 +80,7 @@ jobs:
       - name: Upload .ipa file to FTP server using lftp
         run: |
           lftp -e "
-          set ftp:ssl-allow no;
+          set ftp:ssl-allow yes;
           open ${{ secrets.FTP_HOST }};
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }};
           cd ${{ secrets.FTP_DIRECTORY }};
